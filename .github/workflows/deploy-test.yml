@@ -14,11 +14,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Install Azure CLI
-        uses: azure/setup-azure-cli@v1
+        uses: elstudio/action-install-azure-cli@v1
         with:
           username: ${{ secrets.AZURE_USERNAME }}
           password: ${{ secrets.AZURE_PASSWORD }}
       - name: Deploy to Test
         run: |
           az login -u ${{ secrets.AZURE_USERNAME }} -p ${{ secrets.AZURE_PASSWORD }}
-          az vmss extension set --name CustomScript --publisher Microsoft.Azure.Extensions --version 2.1 --resource-group DevOpsGroup --vmss-name DevOpsScaling --settings '{"commandToExecute": "bash /home/azureuser/backend/update.sh"}'
+          az vmss extension set --name CustomScript --publisher Microsoft.Azure.Extensions --version 2.1 --resource-group DevOpsGroup --vmss-name DevOpsScaling --settings '{"commandToExecute": "sh /home/azureuser/backend/update.sh"}'

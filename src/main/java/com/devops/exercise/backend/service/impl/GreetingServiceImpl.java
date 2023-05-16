@@ -12,7 +12,7 @@ public class GreetingServiceImpl implements GreetingService{
     @Override
     public Response greeting(Payload payload) {
         return Response.builder()
-            .message(String.format("Hello %s your message will be send", payload.getTo()))
+            .message(String.format("Hello %s your message will be send 123", payload.getTo()))
             .build();
     }
     
