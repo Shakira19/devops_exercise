@@ -10,5 +10,5 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t backend .
-          docker tag backend kscofre/backend:latest
-          docker push kscofre/backend:latest
+          docker tag backend kscofre/backend
+          docker push kscofre/backend
