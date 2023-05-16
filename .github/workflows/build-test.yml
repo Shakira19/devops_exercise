@@ -5,10 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          login-server: ${{ secrets.ACR_ENDPOINT }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
       - name: Build and test
         run: chmod +x ./mvnw; ./mvnw clean package
       - name: Build Docker image
         run: |
+          docker login ${{ secrets.ACR_ENDPOINT }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
           docker build -t backend .
-          docker tag backend kscofre/backend
-          docker push kscofre/backend
+          docker tag backend ${{ secrets.ACR_ENDPOINT }}/backend
+          docker push ${{ secrets.ACR_ENDPOINT }}/backend
