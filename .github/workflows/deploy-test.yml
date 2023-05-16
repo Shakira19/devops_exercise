@@ -16,9 +16,10 @@ jobs:
       - name: Install Azure CLI
         uses: elstudio/action-install-azure-cli@v1
         with:
-          username: ${{ secrets.AZURE_USERNAME }}
-          password: ${{ secrets.AZURE_PASSWORD }}
+          tenant_id: ${{ secrets.AZURE_TENANT_ID }}
+          client_id: ${{ secrets.AZURE_CLIENT_ID }}
+          client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
       - name: Deploy to Test
         run: |
-          az login -u ${{ secrets.AZURE_USERNAME }} -p ${{ secrets.AZURE_PASSWORD }}
+          az login --service-principal --tenant ${{ secrets.AZURE_TENANT_ID }} --client-id ${{ secrets.AZURE_CLIENT_ID }} --secret ${{ secrets.AZURE_CLIENT_SECRET }}
           az vmss extension set --name CustomScript --publisher Microsoft.Azure.Extensions --version 2.1 --resource-group DevOpsGroup --vmss-name DevOpsScaling --settings '{"commandToExecute": "sh /home/azureuser/backend/update.sh"}'
