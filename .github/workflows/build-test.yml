@@ -9,6 +9,7 @@ jobs:
         run: ./mvnw clean package
       - name: Build Docker image
         run: |
+          sudo chmod +x ./mvnw
           docker build -t backend .
           docker tag backend kscofre/backend:latest
           docker push kscofre/backend:latest
